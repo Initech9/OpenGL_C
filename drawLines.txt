@@ -1,0 +1,34 @@
+void drawPixel(int x,int y, int r,int g,int b) //draw a pixel at x/y with rgb
+{
+ glColor3ub(r,g,b); 
+ glBegin(GL_POINTS);
+ glVertex2i(x*pixelScale+2,y*pixelScale+2);
+ glEnd();
+}
+
+void drawLine(float x1,float y1,float x2,float y2, int r,int g,int b) 
+{int n;
+ float x=x2-x1;
+ float y=y2-y1;
+ float max=fabs(x); if(fabs(y)>max){ max=fabs(y);}
+ x /= max; y /= max;
+ for(n=0;n<max;n++)
+ {
+  drawPixel(x1,y1,r,g,b);
+  x1+=x; y1+=y;
+ }
+}
+
+void drawNumber(int nx,int ny, int n)
+{int x,y;
+ for(y=0;y<5;y++)
+ { 
+  int y2=((5-y-1)+5*n)*3*12;
+  for(x=0;x<12;x++)
+  { 
+   int x2=x*3;
+   if(T_NUMBERS[y2+x2]==0){ continue;}
+   drawPixel(x+nx,y+ny,255,255,255);
+  }
+ }
+}
